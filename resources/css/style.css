@@ -1,0 +1,64 @@
+body {
+    background-color: #ffc5ca;
+    color: #d9848c;
+}
+.banner-text-shop {
+    color: rgb(255, 255, 255);
+}
+
+.product-card {
+    background-color: #b6cff2;
+    border: 2px solid #ffc5ca;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+#mainNav,
+.bg-nav-custom,
+.product-card,
+footer.bg-primary-gradient {
+    background-color: #ffffff;
+}
+
+.commission-button {
+    display: block;
+    width: 30%;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid rgb(240, 183, 188);
+    border-radius: 5px;
+    text-align: center;
+    /* Pusatkan teks */
+    font-size: 16px;
+    color: #5d5d5d;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.commission-button:hover {
+    background-color: #d9848c;
+    color: #ffffff;
+}
+
+.commission-card {
+    width: 80%;
+    margin: auto;
+}
+
+.full-width-container {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-inner {
+    max-width: 100%;
+}
+
+.banner-text-shop {
+    text-align: center;
+}
