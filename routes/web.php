@@ -27,31 +27,30 @@ use App\Http\Controllers\UserController;
 
 //Belum Login
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/commissions', function () {
+Route::get('/commission', function () {
     return view('user.commission');
 });
 Route::get('/about', function () {
     return view('user.about');
 });
 Route::get('/shop', [UserController::class, 'shop'])->name('shop');
-Route::get('/productdetail/{id}', [UserController::class, 'productDetail'])->name('productDetail');
+Route::get('/homeproductdetail/{id}', [UserController::class, 'homeproductDetail'])->name('homeproductDetail');
+Route::get('/shopproductdetail/{id}', [UserController::class, 'shopproductDetail'])->name('shopproductDetail');
 
 //Udah Login
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
-    Route::get('/home/commissions', function () {
-        return view('user.commission');
-    });
-    Route::get('/home/about', function () {
-        return view('user.about');
-    });
+    Route::get('/home/profileuser', [UserController::class, 'profileuser'])->name('profileuser');
+    Route::put('/home/profileuser', [UserController::class, 'updateProfile'])->name('updateProfile');
+    Route::get('/home/commission', [UserController::class, 'commission'])->name('commission');
+    Route::get('/home/about', [UserController::class, 'about'])->name('about');
     Route::get('/home/shop', [UserController::class, 'shop'])->name('shop');
-    Route::post('/home/shopping-cart', [UserController::class, 'store'])->name('add_to_shopping-cart');
     Route::get('/home/shopping-cart', [UserController::class, 'index'])->name('shopping-cart.get');
+    Route::post('/home/shopping-cart', [UserController::class, 'store'])->name('add_to_shopping-cart');
     Route::post('/home/shopping-cart/{id}', [UserController::class, 'shopping_cart'])->name('shopping-cart');
     Route::post('/home/thankyou', [UserController::class, 'thanks'])->name('thanksPage');
-    Route::get('/home/productdetail/{id}', [UserController::class, 'productDetail'])->name('productDetail');
-
+    Route::get('/home/homeproductdetail/{id}', [UserController::class, 'homeproductDetail'])->name('homeproductDetail');
+    Route::get('/home/shopproductdetail/{id}', [UserController::class, 'shopproductDetail'])->name('shopproductDetail');
     Route::post('/updateCartItem', [UserController::class, 'update'])->name('updateCartItem');
     Route::post('/removeCartItem', [UserController::class, 'destroy'])->name('removeCartItem');
 });

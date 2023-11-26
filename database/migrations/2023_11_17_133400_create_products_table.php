@@ -18,6 +18,8 @@ return new class extends Migration
             $table->longText('description');
             $table->integer('price');
             $table->string('photo')->nullable();
+            $table->json('photoPreview')->nullable();
+            $table->json('photoProgress')->nullable();
             $table->timestamps();
         });
     }

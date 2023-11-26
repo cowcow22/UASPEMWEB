@@ -19,6 +19,11 @@ class Product extends Model
         'photo',
     ];
 
+    protected $casts = [
+        'photoPreview' => 'json',
+        'photoProgress' => 'json',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

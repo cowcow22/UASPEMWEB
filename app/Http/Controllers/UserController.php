@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ShoppingCart;
+use App\Models\User;
+use App\Mail\SendEmail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -87,7 +90,6 @@ class UserController extends Controller
     public function shopping_cart(Request $request)
     {
         $idProduct = $request->buttonBeli;
-        // echo $idProduct;
         $product = Product::findOrFail($idProduct);
         $photos = Storage::url($product->photo);
         return view('user.shopping-cart', ['product' => $product, 'photos' => $photos]);
@@ -199,14 +201,86 @@ class UserController extends Controller
         return redirect('/home/shopping-cart');
     }
 
-    public function thanks(Request $request)
+    public function profileuser(Request $request)
     {
-        echo $request->checkOut;
+        $userID = Auth::id();
+        $userProfile = User::findOrFail($userID);
+        return view('user.profile', ['user' => $userProfile]);
     }
 
-    public function productDetail(Request $request)
+    public function updateProfile(Request $request)
     {
-        // echo $request->checkOut;
-        return view('user.productdetail');
+        $newProfile = $request;
+        $userID = Auth::id();
+        $userProfile = User::findOrFail($userID);
+
+        $userProfile->name = $newProfile->name;
+        $userProfile->email = $newProfile->email;
+        $userProfile->socialMedia = $newProfile->socialMedia;
+        $userProfile->address = $newProfile->address;
+        $userProfile->country = $newProfile->country;
+        $userProfile->postalCode = $newProfile->postalCode;
+        $userProfile->phoneNumber = $newProfile->phoneNumber;
+        $userProfile->save();
+
+        return view('user.profile', ['user' => $userProfile]);
+    }
+
+    public function commission()
+    {
+        return view('user.commission');
+    }
+
+    public function about()
+    {
+        return view('user.about');
+    }
+
+    public function homeproductDetail($id)
+    {
+        $product = Product::findOrFail($id);
+
+        // Generate URLs for the main photo and store them in an array
+        $photos = Storage::url($product->photo);
+
+        // Generate URLs for each photo progress and store them in an array
+        $photoProgress = [];
+        foreach ($product->photoProgress as $progress) {
+            $photoProgress[] = Storage::url($progress);
+        }
+
+        return view('user.homeproductdetail', [
+            'product' => $product,
+            'photos' => $photos,
+            'photoProgress' => $photoProgress
+        ]);
+    }
+
+    public function shopproductDetail($id)
+    {
+        $product = Product::findOrFail($id);
+
+        // Generate URLs for the main photo and store them in an array
+        $photoPreview = [];
+        foreach ($product->photoPreview as $preview) {
+            $photoPreview[] = Storage::url($preview);
+        }
+        // Generate URLs for each photo progress and store them in an array
+        $photoProgress = [];
+        foreach ($product->photoProgress as $progress) {
+            $photoProgress[] = Storage::url($progress);
+        }
+
+        return view('user.shopproductdetail', [
+            'product' => $product,
+            'photoPreview' => $photoPreview,
+            'photoProgress' => $photoProgress
+        ]);
+    }
+
+    public function thanks()
+    {
+        Mail::to('stevfirman22@gmail.com')->send(new SendEmail());
+        return view('user.thankyou');
     }
 }

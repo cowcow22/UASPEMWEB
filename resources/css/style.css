@@ -1,5 +1,6 @@
 body {
-    background-color: #ffc5ca;
+    background-color: #f3c4cb;
+
     color: #d9848c;
 }
 .banner-text-shop {
@@ -18,7 +19,7 @@ body {
 .bg-nav-custom,
 .product-card,
 footer.bg-primary-gradient {
-    background-color: #ffffff;
+    background-color: #f3c4cb;
 }
 
 .commission-button {

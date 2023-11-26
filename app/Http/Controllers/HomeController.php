@@ -13,13 +13,15 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::id()) {
             $role_id = Auth()->user()->role_id;
 
             if ($role_id == '2') {
                 $products = Product::all();
+                // $userID = $request->id;
+                // $userProfile = User::all();
                 // $photos = Storage::url($products->photo);
                 $photos = [];
                 foreach ($products as $product) {

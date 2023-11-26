@@ -1,0 +1,80 @@
+body {
+    font-family: "Open Sans", sans-serif;
+    text-align: center;
+    background-color: #f3c4cb;
+    margin: 100px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000; /* Ensure the navbar is above other content */
+}
+
+#pics {
+    width: 150px;
+    height: 100px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar2 a {
+    color: black;
+    padding: 20px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.navbar2 a:hover {
+    color: green;
+}
+
+#top-image {
+    width: 400px;
+    height: 250px;
+    margin-top: 120px;
+}
+.container {
+    height: 100%;
+    display: flex;
+}
+
+#button1 {
+    font-size: 20px;
+    padding: 10px 80px;
+    background-color: pink;
+    border-radius: 14px;
+}
+
+#button2 {
+    font-size: 20px;
+    margin: 10px;
+    padding: 10px 80px;
+    background-color: pink;
+    border-radius: 14px;
+}
+
+#cart-button,
+#profile-button {
+    background-color: transparent;
+    font-size: 15px;
+    margin: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    border-radius: 14px;
+}
+
+.button-container {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    top: 10px;
+    right: 50px;
+}
