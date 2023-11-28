@@ -19,7 +19,7 @@ class HomeController extends Controller
             $role_id = Auth()->user()->role_id;
 
             if ($role_id == '2') {
-                $products = Product::all();
+                $products = Product::where('photoProgress', '!=', null)->get();
                 // $userID = $request->id;
                 // $userProfile = User::all();
                 // $photos = Storage::url($products->photo);
@@ -38,7 +38,7 @@ class HomeController extends Controller
                 return redirect()->back();
             }
         } else {
-            $products = Product::all();
+            $products = Product::where('photoProgress', '!=', null)->get();
             // $photos = Storage::url($products->photo);
             $photos = [];
             foreach ($products as $product) {

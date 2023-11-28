@@ -1,7 +1,9 @@
 body {
     font-family: "Open Sans", sans-serif;
-    text-align: center;
-    background-color: #f3c4cb;
+    /* text-align: center; */
+    background-color: #fdf7ea;
+
+    /* background-color: #f3c4cb; */
 }
 nav {
     display: flex;
@@ -26,14 +28,14 @@ nav {
 }
 
 .navbar2 a {
-    color: black;
+    color: #d9898c;
     padding: 20px;
     text-decoration: none;
     transition: color 0.3s;
 }
 
 .navbar2 a:hover {
-    color: green;
+    color: #f9c7cf;
 }
 #cart-button,
 #profile-button {
@@ -43,6 +45,8 @@ nav {
     margin-left: 10px;
     padding: 10px;
     border-radius: 14px;
+    border-color: #d9898c;
+    color: #d9898c;
 }
 
 .button-container {

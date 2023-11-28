@@ -25,15 +25,18 @@
             <img src="{{ asset($preview) }}" style="width: 200px; height: 200px;"><br>
         @endforeach
     </div>
-    Photo Progress:
-    <div style=" display:flex; flex-direction:row; justify-content: space-evenly">
+    {{-- Photo Progress: --}}
+    {{-- <div style=" display:flex; flex-direction:row; justify-content: space-evenly">
         @foreach ($photoProgress as $progress)
             <img src="{{ asset($progress) }}" style="width: 200px; height: 200px;"><br>
         @endforeach
-    </div>
+    </div> --}}
     @auth
         <form action="/home/shopping-cart" method="POST">
             @csrf
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity[]" value="1" min="1">
+            <input type="hidden" name="product_id" value="{{ $product->id }}">
             <button type="submit" name="buttonBeli" value="{{ $product->id }}" class="btn btn-primary">Beli</button>
         </form>
     @endauth

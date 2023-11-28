@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 </head>
 
-<body>
+<body class="container">
     <nav class="navbar navbar-expand-md navbar-shrink">
         <div class="container">
             @auth
@@ -79,44 +79,40 @@
         </div>
     </nav>
 
-    <table style="border:1px solid black; text-align:center">
-        <tr style="border:1px solid black">
-            <th style="border:1px solid black">Photo</th>
-            <th style="border:1px solid black">Product Name</th>
-            <th style="border:1px solid black">Description</th>
-            <th style="border:1px solid black">Price</th>
-            <th style="border:1px solid black">Quantity</th>
-            <th style="border:1px solid black">Tindakan</th>
-        </tr>
-        <?php $totalHarga = 0; ?>
-        @foreach ($cartData as $cartItem)
-            <tr style="border:1px solid black">
-                <td style="border:1px solid black"><img src="{{ $cartItem['photoUrl'] }}" alt="Product Photo"
-                        style="width:200px; height:200px;"></td>
-                <td style="border:1px solid black">{{ $cartItem['product']->productName }}</td>
-                <td style="border:1px solid black">{{ $cartItem['description'] }}</td>
-                <td style="border:1px solid black">{{ $cartItem['price'] }}</td>
-                <td style="border:1px solid black">{{ $cartItem['qty'] }}</td>
-                <td>
-                    <form method="post" action="{{ route('updateCartItem') }}">
-                        @csrf
-                        <button type="submit" name="btnProductID" value="{{ $cartItem['idProduct'] }}">+</button>
-                    </form>
-
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <div>
+            <?php $totalHarga = 0; ?>
+            @foreach ($cartData as $cartItem)
+                <div style="display: flex; justify-content:space-between; margin:10px; align-items:center">
+                    <img src="{{ $cartItem['photoUrl'] }}" alt="Product Photo" style="width:200px; height:200px;">
+                    <p>{{ $cartItem['product']->productName }}</p>
+                    <p>{{ $cartItem['category'] }}</p>
                     <form method="post" action="{{ route('removeCartItem') }}">
                         @csrf
-                        <button type="submit" name="btnProductID" value="{{ $cartItem['idProduct'] }}">-</button>
+                        <button type="submit" name="btnProductID" value="{{ $cartItem['idProduct'] }}"
+                            style="border: none; background-color: transparent; outline: none;">-</button>
                     </form>
-                </td>
-            </tr>
-            <?php $totalHarga += $cartItem['price'] * $cartItem['qty']; ?>
-        @endforeach
-    </table>
-    <h3>Total Price: Rp. <?= $totalHarga ?></h3>
-    <form method="post" action="/home/thankyou">
-        @csrf
-        <button type="submit" name="checkOut">Checkout</button>
-    </form>
+                    <p>{{ $cartItem['qty'] }}</p>
+                    <form method="post" action="{{ route('updateCartItem') }}">
+                        @csrf
+                        <button type="submit" name="btnProductID" value="{{ $cartItem['idProduct'] }}"
+                            style="border: none; background-color: transparent; outline: none;">+</button>
+                    </form>
+                    <p>$ {{ $cartItem['price'] }}</p>
+                    <?php $totalHarga += $cartItem['price'] * $cartItem['qty']; ?>
+                </div>
+            @endforeach
+        </div>
+        <hr>
+        <div style="text-align: right">
+            <h3>Subtotal: $ <?= $totalHarga ?></h3>
+            <form method="post" action="/home/thankyou">
+                @csrf
+                <button type="submit" name="checkOut">Checkout</button>
+            </form>
+        </div>
+    </div>
 
     <footer>
         <div class="container py-4 py-lg-5">

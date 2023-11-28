@@ -39,7 +39,7 @@ class AdminController extends Controller
             'price' => 'required|numeric',
             'photo' => 'required|image|mimes:jpg,jpeg,png',
             'photoPreview.*' => 'required|image|mimes:jpg,jpeg,png',
-            'photoProgress.*' => 'required|image|mimes:jpg,jpeg,png',
+            'photoProgress.*' => 'image|mimes:jpg,jpeg,png',
         ]);
 
 
@@ -66,20 +66,15 @@ class AdminController extends Controller
         }
 
         // Store and associate the progress photos
-        $photoProgressPaths = [];
-        foreach ($photoProgress as $file) {
-            $extension = $file->extension();
-            if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
-                return redirect()->back()->withInput()->withErrors(['photoProgress' => 'One or more photo progresses must be a jpg, jpeg, or png file.']);
-            }
+        // $photoProgressPaths = [];
+        // foreach ($photoProgress as $file) {
+        //     $extension = $file->extension();
+        //     if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
+        //         return redirect()->back()->withInput()->withErrors(['photoProgress' => 'One or more photo progresses must be a jpg, jpeg, or png file.']);
+        //     }
 
-            $progressPath = $file->storePublicly('photos', 'public');
-            $photoProgressPaths[] = $progressPath;
-        }
-
-        // $ext = $request->file(['photo', 'photoPreview[]', 'photoProgress[]'])->extension();
-        // if (!in_array($ext, ['jpg', 'jpeg', 'png'])) {
-        //     return redirect()->back()->withInput()->withErrors(['photo' => 'The photo must be a jpg, jpeg, or png file.']);
+        //     $progressPath = $file->storePublicly('photos', 'public');
+        //     $photoProgressPaths[] = $progressPath;
         // }
 
         $product = new Product();
@@ -89,7 +84,21 @@ class AdminController extends Controller
         $product->price = $request->price;
         $product->photo = $path;
         $product->photoPreview = $photoPreviewPaths;
-        $product->photoProgress = $photoProgressPaths;
+
+        if ($request->hasFile('photoProgress')) {
+            $photoProgressPaths = [];
+            foreach ($request->file('photoProgress') as $file) {
+                $extension = $file->extension();
+                if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
+                    return redirect()->back()->withInput()->withErrors(['photoProgress' => 'One or more photo progress must be a jpg, jpeg, or png file.']);
+                }
+
+                $progressPath = $file->storePublicly('photos', 'public');
+                $photoProgressPaths[] = $progressPath;
+            }
+            $product->photoProgress = $photoProgressPaths;
+        }
+        // $product->photoProgress = $photoProgressPaths;
         $product->save();
         return redirect('/home');
     }

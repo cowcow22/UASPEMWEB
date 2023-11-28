@@ -120,29 +120,31 @@
                 <div class="col col-2">
                     <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
                         <div class="">
-                            <ul class="nav flex-column" style="color: black">
+                            <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="#" data-category="all">
+                                    <a class="nav-link active" href="#" data-category="all"
+                                        style="color: black">
                                         All
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" data-category="artbook">
+                                    <a class="nav-link" href="#" data-category="artbook" style="color: black">
                                         Artbook
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" data-category="charms">
+                                    <a class="nav-link" href="#" data-category="charms" style="color: black">
                                         Charms
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" data-category="photocard">
+                                    <a class="nav-link" href="#" data-category="photocard"
+                                        style="color: black">
                                         Photocard
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#" data-category="print">
+                                    <a class="nav-link" href="#" data-category="print" style="color: black">
                                         Print
                                     </a>
                                 </li>

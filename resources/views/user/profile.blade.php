@@ -88,7 +88,7 @@
                         style="width: 250px; height: 200px">
                 </div>
             </div>
-            <form action="{{ route('updateProfile') }}" method="POST">
+            <form action="{{ route('updateProfile') }}" method="POST" class="text-center">
                 @method('PUT')
                 @csrf
                 <div class="mt-4"> <!-- Removed unnecessary classes from the parent div -->
@@ -109,7 +109,9 @@
                                 value="{{ $user->phoneNumber ?? 'There is no number!' }}"></li>
                     </ul>
                 </div>
+
                 <button type="submit" id="profile-button" role="button">Edit</button>
+
                 {{-- <button class="btn btn-primary shadow" role="button">Edit</button> --}}
             </form>
         </div>

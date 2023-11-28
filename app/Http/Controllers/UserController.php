@@ -48,6 +48,7 @@ class UserController extends Controller
                     'qty' => $qty,
                     'photoUrl' => Storage::url($item->photo),
                     'description' => $item->description,
+                    'category' => $item->category,
                     'price' => $item->price,
                 ];
             }
@@ -133,75 +134,7 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        // $product = Product::findOrFail($id);
-
-        // return view('dashboard', ['product' => $product, 'photos' => $photos]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request)
-    {
-        if (Auth::id()) {
-            $idUser = Auth::id();
-            $productID = $request->btnProductID;
-
-            $product = Product::findOrFail($productID);
-
-
-            $shoppingCart = ShoppingCart::where('idUser', $idUser)->where("idProduct", $productID)->get();
-
-            foreach ($shoppingCart as $shoppingCart) {
-                $shoppingCart->qty = $shoppingCart->qty + 1;
-                $shoppingCart->totalPrice += $product->price;
-            }
-
-            $shoppingCart->save();
-        }
-        return redirect('/home/shopping-cart');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Request $request)
-    {
-        if (Auth::id()) {
-            $idUser = Auth::id();
-            $productID = $request->btnProductID;
-
-            $product = Product::findOrFail($productID);
-
-
-            $shoppingCart = ShoppingCart::where('idUser', $idUser)->where("idProduct", $productID)->get();
-            foreach ($shoppingCart as $shoppingCart) {
-                if ($shoppingCart->qty > 1) {
-                    $shoppingCart->qty = $shoppingCart->qty - 1;
-                    $shoppingCart->totalPrice -= $product->price;
-                    $shoppingCart->save();
-                } else {
-                    $shoppingCart->delete();
-                }
-            }
-        }
-        return redirect('/home/shopping-cart');
-    }
-
-    public function profileuser(Request $request)
+    public function profileuser()
     {
         $userID = Auth::id();
         $userProfile = User::findOrFail($userID);
@@ -266,15 +199,15 @@ class UserController extends Controller
             $photoPreview[] = Storage::url($preview);
         }
         // Generate URLs for each photo progress and store them in an array
-        $photoProgress = [];
-        foreach ($product->photoProgress as $progress) {
-            $photoProgress[] = Storage::url($progress);
-        }
+        // $photoProgress = [];
+        // foreach ($product->photoProgress as $progress) {
+        //     $photoProgress[] = Storage::url($progress);
+        // }
 
         return view('user.shopproductdetail', [
             'product' => $product,
             'photoPreview' => $photoPreview,
-            'photoProgress' => $photoProgress
+            // 'photoProgress' => $photoProgress
         ]);
     }
 
@@ -282,5 +215,73 @@ class UserController extends Controller
     {
         Mail::to('stevfirman22@gmail.com')->send(new SendEmail());
         return view('user.thankyou');
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        if (Auth::id()) {
+            $idUser = Auth::id();
+            $productID = $request->btnProductID;
+
+            $product = Product::findOrFail($productID);
+
+
+            $shoppingCart = ShoppingCart::where('idUser', $idUser)->where("idProduct", $productID)->get();
+
+            foreach ($shoppingCart as $shoppingCart) {
+                $shoppingCart->qty = $shoppingCart->qty + 1;
+                $shoppingCart->totalPrice += $product->price;
+            }
+
+            $shoppingCart->save();
+        }
+        return redirect('/home/shopping-cart');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Request $request)
+    {
+        if (Auth::id()) {
+            $idUser = Auth::id();
+            $productID = $request->btnProductID;
+
+            $product = Product::findOrFail($productID);
+
+
+            $shoppingCart = ShoppingCart::where('idUser', $idUser)->where("idProduct", $productID)->get();
+            foreach ($shoppingCart as $shoppingCart) {
+                if ($shoppingCart->qty > 1) {
+                    $shoppingCart->qty = $shoppingCart->qty - 1;
+                    $shoppingCart->totalPrice -= $product->price;
+                    $shoppingCart->save();
+                } else {
+                    $shoppingCart->delete();
+                }
+            }
+        }
+        return redirect('/home/shopping-cart');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        // $product = Product::findOrFail($id);
+
+        // return view('dashboard', ['product' => $product, 'photos' => $photos]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
     }
 }
