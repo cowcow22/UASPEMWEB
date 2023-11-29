@@ -11,192 +11,135 @@
     @vite('resources/css/bootstrap.min.css')
     @vite('resources/js/bootstrap.min.js')
     @vite('resources/js/bold-and-bright.js')
-    @vite('resources/css/navbar.css')
+    @vite('resources/css/home.css')
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-shrink">
-        <div class="container">
-            @auth
-                <div class="piccontainer">
-                    <a class="navbar-brand d-flex align-items-center" href="/home">
-                        <img id="pics" src="{{ URL::asset('storage/asset/2.png') }}">
+    <div class="nav-wrapper nav-wrapper-1">
+        <nav class="navbar navbar-expand-lg navbar-light bg-nav-custom effect-1">
+            <div class="container">
+                @auth
+                    <a class="navbar-brand" href="/home" style="width: 200px">
+                        <img src="{{ URL::asset('storage/asset/2.png') }}" alt="" class="logo-nav" />
                     </a>
-                </div>
-                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
-                    <span class="visually-hidden">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-between" id="navcol-1">
-                    <div class="navbar2">
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item"><a href="/home">Home</a></li>
-                            <li class="nav-item"><a href="/home/commission">Commission</a></li>
-                            <li class="nav-item"><a href="/home/shop">Shop</a></li>
-                            <li class="nav-item"><a href="/home/about">About</a></li>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-lg-0 nav-item-custome">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/home/commission">Commision</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/home/shop">Shop</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/home/about">About</a>
+                            </li>
+                            <li>
+                                <div class="button-container justify-content-center">
+                                    <button id="cart-button" onclick="redirectToCart()"><i
+                                            class="fa-solid fa-cart-shopping"></i></button>
+                                    <button id="profile-button" onclick="redirectToProfile()"><i
+                                            class="fa-solid fa-user"></i></button>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" id="profile-button" role="button">LogOut</button>
+                                    </form>
+                                </div>
+                            </li>
                         </ul>
                     </div>
-                    <div class="button-container justify-content-center">
-                        <button id="cart-button" onclick="redirectToCart()"><i
-                                class="fa-solid fa-cart-shopping"></i></button>
-                        <button id="profile-button" onclick="redirectToProfile()"><i class="fa-solid fa-user"></i></button>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" id="profile-button" role="button">Log Out</button>
-                        </form>
-                    </div>
-                </div>
-            @else
-                <div class="piccontainer">
-                    <a class="navbar-brand d-flex align-items-center" href="/">
-                        <img id="pics" src="{{ URL::asset('storage/asset/2.png') }}">
+                @else
+                    <a class="navbar-brand" href="/" style="width: 200px">
+                        <img src="{{ URL::asset('storage/asset/2.png') }}" alt="" class="logo-nav" />
                     </a>
-                </div>
-                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
-                    <span class="visually-hidden">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-between" id="navcol-1">
-                    <div class="navbar2">
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item"><a href="/">Home</a></li>
-                            <li class="nav-item"><a href="/commission">Commission</a></li>
-                            <li class="nav-item"><a href="/shop">Shop</a></li>
-                            <li class="nav-item"><a href="/about">About</a></li>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-lg-0 nav-item-custome">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/commission">Commision</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/shop">Shop</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/about">About</a>
+                            </li>
+                            <li>
+                                <div class="button-container justify-content-center">
+                                    <button type="submit" id="profile-button" role="button"
+                                        onclick="redirectToLogin()">LogIn</button>
+                                    <button type="submit" id="profile-button" role="button"
+                                        onclick="redirectToRegister()">Register</button>
+                                </div>
+                            </li>
                         </ul>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <div class="button-container">
-                            <button type="submit" id="profile-button" role="button" onclick="redirectToLogin()">Log
-                                In</button>
-                            <button type="submit" id="profile-button" role="button"
-                                onclick="redirectToRegister()">Register</button>
-                        </div>
                     </div>
                 @endauth
             </div>
-        </div>
-    </nav>
-    <section>
-        <section id="gallery-1">
-            <div class="container py-3">
-                <div class="row row-cols-1 row-cols-md-3">
-                    @auth
-                        @foreach ($products as $key => $product)
-                            <div class="col-md-6">
-                                <div class="row">
-                                    @if (array_key_exists($key * 6, $photos))
-                                        <div class="col py-2">
-                                            <a href="/home/homeproductdetail/{{ $products[$key]->id }}">
-                                                <img class="img-fluid rounded" src="{{ asset($photos[$key * 6]) }}"
-                                                    alt="bssblocks image placeholder" height="100%" width="100%" />
-                                            </a>
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="row">
-                                    @for ($i = 1; $i <= 2; $i++)
-                                        @if (array_key_exists($key * 6 + $i, $photos))
-                                            <div class="col py-3">
-                                                <a href="/home/homeproductdetail/{{ $products[$key * 6 + $i]->id }}">
-                                                    <img class="img-fluid rounded" src="{{ asset($photos[$key * 6 + $i]) }}"
-                                                        alt="bssblocks image placeholder" height="100%" width="100%" />
-                                                </a>
-                                            </div>
-                                        @endif
-                                    @endfor
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="row">
-                                    @for ($i = 3; $i <= 4; $i++)
-                                        @if (array_key_exists($key * 6 + $i, $photos))
-                                            <div class="col py-2">
-                                                <a href="/home/homeproductdetail/{{ $products[$key * 6 + $i]->id }}">
-                                                    <img class="img-fluid rounded"
-                                                        src="{{ asset($photos[$key * 6 + $i]) }}"
-                                                        alt="bssblocks image placeholder" height="100%"
-                                                        width="100%" />
-                                                </a>
-                                            </div>
-                                        @endif
-                                    @endfor
-                                </div>
-                                <div class="row">
-                                    @if (array_key_exists($key * 6 + 5, $photos))
-                                        <div class="col py-3">
-                                            <a href="/home/homeproductdetail/{{ $products[$key * 6 + 5]->id }}">
-                                                <img class="img-fluid rounded" src="{{ asset($photos[$key * 6 + 5]) }}"
-                                                    alt="bssblocks image placeholder" height="100%" width="100%" />
-                                            </a>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        @endforeach
+        </nav>
+    </div>
+    @auth
+        <div class="py-4 container">
+            <div class="container-gallery">
+                @foreach ($products as $key => $product)
+                    @if ($key % 3 == 0)
+                        <div class="big">
+                            <a href="/home/homeproductdetail/{{ $product->id }}">
+                                <img class="img-fluid rounded" src="{{ asset($photos[$key]) }}"
+                                    alt="bssblocks image placeholder" height="100%" width="100%" />
+                            </a>
+                        </div>
                     @else
-                        @foreach ($products as $key => $product)
-                            <div class="col-md-6">
-                                <div class="row">
-                                    @if (array_key_exists($key * 6, $photos))
-                                        <div class="col py-2">
-                                            <a href="/homeproductdetail/{{ $products[$key]->id }}">
-                                                <img class="img-fluid rounded" src="{{ asset($photos[$key * 6]) }}"
-                                                    alt="bssblocks image placeholder" height="100%" width="100%" />
-                                            </a>
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="row">
-                                    @for ($i = 1; $i <= 2; $i++)
-                                        @if (array_key_exists($key * 6 + $i, $photos))
-                                            <div class="col py-3">
-                                                <a href="/homeproductdetail/{{ $products[$key * 6 + $i]->id }}">
-                                                    <img class="img-fluid rounded"
-                                                        src="{{ asset($photos[$key * 6 + $i]) }}"
-                                                        alt="bssblocks image placeholder" height="100%"
-                                                        width="100%" />
-                                                </a>
-                                            </div>
-                                        @endif
-                                    @endfor
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="row">
-                                    @for ($i = 3; $i <= 4; $i++)
-                                        @if (array_key_exists($key * 6 + $i, $photos))
-                                            <div class="col py-2">
-                                                <a href="/homeproductdetail/{{ $products[$key * 6 + $i]->id }}">
-                                                    <img class="img-fluid rounded"
-                                                        src="{{ asset($photos[$key * 6 + $i]) }}"
-                                                        alt="bssblocks image placeholder" height="100%"
-                                                        width="100%" />
-                                                </a>
-                                            </div>
-                                        @endif
-                                    @endfor
-                                </div>
-                                <div class="row">
-                                    @if (array_key_exists($key * 6 + 5, $photos))
-                                        <div class="col py-3">
-                                            <a href="/homeproductdetail/{{ $products[$key * 6 + 5]->id }}">
-                                                <img class="img-fluid rounded" src="{{ asset($photos[$key * 6 + 5]) }}"
-                                                    alt="bssblocks image placeholder" height="100%" width="100%" />
-                                            </a>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        @endforeach
-                    @endauth
-                </div>
+                        <div class="{{ ($key + 1) % 3 == 0 ? 'horizontal' : 'vertical' }}">
+                            <a href="/home/homeproductdetail/{{ $product->id }}">
+                                <img class="img-fluid rounded" src="{{ asset($photos[$key]) }}"
+                                    alt="bssblocks image placeholder" height="100%" width="100%" />
+                            </a>
+                        </div>
+                    @endif
+                @endforeach
             </div>
-        </section>
-    </section>
+        </div>
+    @else
+        <div class="py-4 container">
+            <div class="container-gallery">
+                @foreach ($products as $key => $product)
+                    @if ($key % 3 == 0)
+                        <div class="big">
+                            <a href="/homeproductdetail/{{ $product->id }}">
+                                <img class="img-fluid rounded" src="{{ asset($photos[$key]) }}"
+                                    alt="bssblocks image placeholder" height="100%" width="100%" />
+                            </a>
+                        </div>
+                    @else
+                        <div class="{{ ($key + 1) % 3 == 0 ? 'horizontal' : 'vertical' }}">
+                            <a href="/homeproductdetail/{{ $product->id }}">
+                                <img class="img-fluid rounded" src="{{ asset($photos[$key]) }}"
+                                    alt="bssblocks image placeholder" height="100%" width="100%" />
+                            </a>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    @endauth
     <footer>
         <div class="container py-4 py-lg-5">
             <div class="text-muted d-flex justify-content-between align-items-center">

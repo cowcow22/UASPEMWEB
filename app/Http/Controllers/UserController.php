@@ -9,6 +9,7 @@ use App\Mail\SendEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -20,19 +21,12 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             $userID = Auth::id();
-            $shoppingCart = ShoppingCart::where('idUser', $userID)->get();
+            $shoppingCart = ShoppingCart::where('idUser', $userID)->where('deleted_at', null)->get();
 
             $idProducts = $shoppingCart->pluck('idProduct')->toArray();
 
             // Use 'whereIn' to retrieve all products in a single query
             $items = Product::whereIn('id', $idProducts)->get();
-
-            // $photos = [];
-            // foreach ($items as $item) {
-            //     $photoUrl = Storage::url($item->photo);
-            //     $photos[] = $photoUrl;
-            // }
-
 
             $cartData = [];
             foreach ($items as $item) {
@@ -116,11 +110,20 @@ class UserController extends Controller
             if (ShoppingCart::where('idUser', $idUser)->where('idProduct', $idProduct)->count() > 0) {
                 $shoppingCart = ShoppingCart::where('idUser', $idUser)->where('idProduct', $idProduct)->get();
                 foreach ($shoppingCart as $shoppingCart) {
-                    $shoppingCart->qty = $shoppingCart->qty + 1;
+                    if (isset($request->qty)) {
+                        $quantity = $request->qty;
+                    } else {
+                        $quantity = 1;
+                    }
+                    $shoppingCart->qty = $shoppingCart->qty + $quantity;
                     $shoppingCart->totalPrice += $product->price;
                 }
             } else {
-                $quantity = 1;
+                if (isset($request->qty)) {
+                    $quantity = $request->qty;
+                } else {
+                    $quantity = 1;
+                }
                 $totalPrice = $product->price;
 
                 $shoppingCart = new ShoppingCart();
@@ -143,6 +146,16 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'socialMedia' => 'required',
+            'address' => 'required',
+            'country' => 'required', // Adjust the max file size as needed
+            'postalCode' => 'required',
+            'phoneNumber' => 'required',
+        ]);
+
         $newProfile = $request;
         $userID = Auth::id();
         $userProfile = User::findOrFail($userID);
@@ -192,18 +205,11 @@ class UserController extends Controller
     public function shopproductDetail($id)
     {
         $product = Product::findOrFail($id);
-
         // Generate URLs for the main photo and store them in an array
         $photoPreview = [];
         foreach ($product->photoPreview as $preview) {
             $photoPreview[] = Storage::url($preview);
         }
-        // Generate URLs for each photo progress and store them in an array
-        // $photoProgress = [];
-        // foreach ($product->photoProgress as $progress) {
-        //     $photoProgress[] = Storage::url($progress);
-        // }
-
         return view('user.shopproductdetail', [
             'product' => $product,
             'photoPreview' => $photoPreview,
@@ -214,6 +220,9 @@ class UserController extends Controller
     public function thanks()
     {
         Mail::to('stevfirman22@gmail.com')->send(new SendEmail());
+        $userID = Auth::id();
+        ShoppingCart::where('idUser', $userID)->delete();
+
         return view('user.thankyou');
     }
 

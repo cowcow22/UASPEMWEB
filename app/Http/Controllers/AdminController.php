@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ShoppingCart;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +36,7 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category' => 'required|in:charms,photocard,artbook,print',
+            'category' => 'required|in:charms,photocard,artbook,print,Charms,Photochard,Artbook,Print',
             'productName' => 'required',
             'description' => 'required',
             'price' => 'required|numeric',
@@ -149,7 +152,7 @@ class AdminController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'category' => 'in:charms,photocard,artbook,print',
+            'category' => 'in:charms,photocard,artbook,print,Charms,Photochard,Artbook,Print',
             'productName' => '',
             'description' => '',
             'price' => 'numeric',
@@ -225,5 +228,35 @@ class AdminController extends Controller
         $product = Product::find($id);
         $product->delete();
         return redirect('/home');
+    }
+
+    public function history()
+    {
+        $shoppingCarts = ShoppingCart::onlyTrashed()->orderBy('deleted_at', 'desc')->get();
+
+
+        $cartData = [];
+        foreach ($shoppingCarts as $shoppingCart) {
+            $idProduct = $shoppingCart->idProduct;
+            $item = Product::where('id', $idProduct)->first();
+
+            $idUser = $shoppingCart->idUser;
+            $user = User::where('id', $idUser)->first();
+
+            if ($item) {
+                $cartData[] = [
+                    'id' => $shoppingCart->id,
+                    'idProduct' => $idProduct,
+                    'product' => $item,
+                    'user' => $user,
+                    'qty' => $shoppingCart->qty,
+                    'totalPrice' => $shoppingCart->totalPrice,
+                    'tglOrder' => Carbon::parse($shoppingCart->deleted_at)->format('l, jS F Y, h:i:s A'),
+                ];
+            }
+        }
+
+
+        return view('admin.history', ['cartData' => $cartData]);
     }
 }

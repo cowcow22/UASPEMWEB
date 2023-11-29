@@ -49,13 +49,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/home/shopping-cart', [UserController::class, 'store'])->name('add_to_shopping-cart');
     Route::post('/home/shopping-cart/{id}', [UserController::class, 'shopping_cart'])->name('shopping-cart');
     Route::post('/home/thankyou', [UserController::class, 'thanks'])->name('thanksPage');
+    // Route::get('/home/thankyou', [UserController::class, 'thanks'])->name('thanksPage');
     Route::get('/home/homeproductdetail/{id}', [UserController::class, 'homeproductDetail'])->name('homeproductDetail');
     Route::get('/home/shopproductdetail/{id}', [UserController::class, 'shopproductDetail'])->name('shopproductDetail');
     Route::post('/updateCartItem', [UserController::class, 'update'])->name('updateCartItem');
     Route::post('/removeCartItem', [UserController::class, 'destroy'])->name('removeCartItem');
+    // Route::post('/checkout', [UserController::class, 'checkout'])->name('checkout');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('home/admin/orderHistory', [AdminController::class, 'history'])->name('history');
     Route::resource('product', AdminController::class);
     Route::resource('admin', AdminController::class);
     Route::get('home/admin/create', [AdminController::class, 'create'])->name('admin.create');

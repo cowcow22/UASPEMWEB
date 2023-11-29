@@ -12,96 +12,113 @@
     @vite('resources/css/bootstrap.min.css')
     @vite('resources/js/bootstrap.min.js')
     @vite('resources/js/bold-and-bright.js')
-    @vite('resources/css/navbar.css')
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-shrink">
-        <div class="container">
-            @auth
-                <div class="piccontainer">
-                    <a class="navbar-brand d-flex align-items-center" href="/home">
-                        <img id="pics" src="{{ URL::asset('storage/asset/2.png') }}">
+    <div class="nav-wrapper nav-wrapper-1">
+        <nav class="navbar navbar-expand-lg navbar-light bg-nav-custom effect-1">
+            <div class="container">
+                @auth
+                    <a class="navbar-brand" href="/home" style="width: 200px">
+                        <img src="{{ URL::asset('storage/asset/2.png') }}" alt="" class="logo-nav" />
                     </a>
-                </div>
-                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
-                    <span class="visually-hidden">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-between" id="navcol-1">
-                    <div class="navbar2">
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item"><a href="/home">Home</a></li>
-                            <li class="nav-item"><a href="/home/commission">Commission</a></li>
-                            <li class="nav-item"><a href="/home/shop">Shop</a></li>
-                            <li class="nav-item"><a href="/home/about">About</a></li>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-lg-0 nav-item-custome">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/home/commission">Commision</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/home/shop">Shop</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/home/about">About</a>
+                            </li>
+                            <li>
+                                <div class="button-container justify-content-center">
+                                    <button id="cart-button" onclick="redirectToCart()"><i
+                                            class="fa-solid fa-cart-shopping"></i></button>
+                                    <button id="profile-button" onclick="redirectToProfile()"><i
+                                            class="fa-solid fa-user"></i></button>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" id="profile-button" role="button">LogOut</button>
+                                    </form>
+                                </div>
+                            </li>
                         </ul>
                     </div>
-                    <div class="button-container justify-content-center">
-                        <button id="cart-button" onclick="redirectToCart()"><i
-                                class="fa-solid fa-cart-shopping"></i></button>
-                        <button id="profile-button" onclick="redirectToProfile()"><i class="fa-solid fa-user"></i></button>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" id="profile-button" role="button">Log Out</button>
-                        </form>
-                    </div>
-                </div>
-            @else
-                <div class="piccontainer">
-                    <a class="navbar-brand d-flex align-items-center" href="/">
-                        <img id="pics" src="{{ URL::asset('storage/asset/2.png') }}">
+                @else
+                    <a class="navbar-brand" href="/" style="width: 200px">
+                        <img src="{{ URL::asset('storage/asset/2.png') }}" alt="" class="logo-nav" />
                     </a>
-                </div>
-                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
-                    <span class="visually-hidden">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-between" id="navcol-1">
-                    <div class="navbar2">
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item"><a href="/">Home</a></li>
-                            <li class="nav-item"><a href="/commission">Commission</a></li>
-                            <li class="nav-item"><a href="/shop">Shop</a></li>
-                            <li class="nav-item"><a href="/about">About</a></li>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-lg-0 nav-item-custome">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/commission">Commision</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/shop">Shop</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/about">About</a>
+                            </li>
+                            <li>
+                                <div class="button-container justify-content-center">
+                                    <button type="submit" id="profile-button" role="button"
+                                        onclick="redirectToLogin()">LogIn</button>
+                                    <button type="submit" id="profile-button" role="button"
+                                        onclick="redirectToRegister()">Register</button>
+                                </div>
+                            </li>
                         </ul>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <div class="button-container">
-                            <button type="submit" id="profile-button" role="button" onclick="redirectToLogin()">Log
-                                In</button>
-                            <button type="submit" id="profile-button" role="button"
-                                onclick="redirectToRegister()">Register</button>
-                        </div>
                     </div>
                 @endauth
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
     <section>
         <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <img src="{{ URL::asset('storage/bannerPhoto/bg_Vyragami.jpeg') }}" class="d-block w-100"
                         alt="Slide 1" style="max-width: 100%; max-height: 400px;">
-                    <div class="carousel-caption d-none d-md-block">
+                    {{-- <div class="carousel-caption d-none d-md-block">
                         <h1 class="text-uppercase fw-bold mb-3">Biben dum 1<br>fringi dictum, augue purus</h1>
                         <p>Etiam a rutrum, mauris lectus aptent convallis. Fusce vulputate aliquam, sagittis odio metus.
                             Nulla porttitor vivamus viverra laoreet, aliquam netus.</p>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="carousel-item">
                     <img src="{{ URL::asset('storage/bannerPhoto/b3ff783e37ea7da7b93102f060b2df0c.jpg') }}"
                         class="d-block w-100" alt="Slide 2" style="max-width: 100%; max-height: 400px;">
-                    <div class="carousel-caption d-none d-md-block">
+                    {{-- <div class="carousel-caption d-none d-md-block">
                         <h1 class="text-uppercase fw-bold mb-3">Biben dum 2<br>fringi dictum, augue purus</h1>
                         <p>Etiam a rutrum, mauris lectus aptent convallis. Fusce vulputate aliquam, sagittis odio metus.
                             Nulla porttitor vivamus viverra laoreet, aliquam netus.</p>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel"
+                data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
@@ -154,25 +171,36 @@
 
                 </div>
                 <div class="col col-10">
-                    <div class="row row-cols-1 row-cols-md-3">
+                    <div class="row">
                         @foreach ($products as $key => $product)
-                            <div class="col col-3 mb-4 {{ strtolower($product->category) }}">
-                                <div class="card product-card">
+                            <div class="col-md-4 col-sm-6 {{ strtolower($product->category) }}">
+                                <div class="card product-card mb-3">
                                     <a href="/shopproductdetail/{{ $product->id }}">
-                                        <img src="{{ asset($photos[$key]) }}" class="card-img-top"
-                                            alt="Product Image">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ $product->productName }}</h5>
-                                            <p class="card-text">{{ $product->description }}</p>
-                                            <p class="card-text">{{ $product->price }}</p>
-                                            @auth
-                                                <form action="/home/shopping-cart" method="POST">
-                                                    @csrf
-                                                    <button type="submit" name="buttonBeli" value="{{ $product->id }}"
-                                                        class="btn btn-primary">Beli</button>
-                                                </form>
-                                            @endauth
-                                        </div>
+                                        <section class="panel">
+                                            <div class="pro-img-box text-center mb-2">
+                                                <img src="{{ asset($photos[$key]) }}" class="card-img-top"
+                                                    alt="Product Image" style="height: 200px">
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h5 class="mb-0">{{ $product->productName }}</h5>
+                                                    {{-- <p class="card-text">{{ $product->description }}</p> --}}
+                                                    <p class="mb-0">$ {{ $product->price }}</p>
+                                                </div>
+                                                @auth
+                                                    <div class="d-flex align-items-center mt-2"
+                                                        style="justify-content: right;">
+                                                        <form action="/home/shopping-cart" method="POST">
+                                                            @csrf
+                                                            <button type="submit" name="buttonBeli"
+                                                                value="{{ $product->id }}" class="btn"
+                                                                id="profile-button" style="margin:0px !important;">Add to
+                                                                Cart</button>
+                                                        </form>
+                                                    </div>
+                                                @endauth
+                                            </div>
+                                        </section>
                                     </a>
                                 </div>
                             </div>
@@ -223,9 +251,9 @@
                 e.preventDefault();
                 const category = $(this).data('category');
                 if (category === 'all') {
-                    $('.col-3').show();
+                    $('.col-md-4.col-sm-6').show(); // Update the selector here
                 } else {
-                    $('.col-3').hide();
+                    $('.col-md-4.col-sm-6').hide(); // Update the selector here
                     $(`.${category}`).show();
                 }
             });

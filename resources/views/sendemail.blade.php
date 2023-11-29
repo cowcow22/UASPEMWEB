@@ -9,16 +9,14 @@
 </head>
 
 <body>
-    <h1>Testing send email</h1>
-    <ul class="list-unstyled text-start"> <!-- Apply text-start directly to ul -->
+    <h1>New Order</h1>
+    <ul class="list-unstyled text-start">
         <li>Name:{{ $userProfile->name }}</li>
         <li>Email: {{ $userProfile->email }}</li>
         <li>Socials: {{ $userProfile->socialMedia ?? 'No socials set.' }} </li>
         <li>Address:
             {{ $userProfile->address ?? 'Location unknown' }}</li>
-
         <li>Country:{{ $userProfile->country ?? 'No country set' }}</li>
-
         <li>Postal Code: {{ $userProfile->postalCode ?? 'No postal code set' }}</li>
         <li>Phone Number: {{ $userProfile->phoneNumber ?? 'There is no number!' }}</li>
     </ul>

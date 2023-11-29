@@ -11,85 +11,104 @@
     @vite('resources/css/bootstrap.min.css')
     @vite('resources/js/bootstrap.min.js')
     @vite('resources/js/bold-and-bright.js')
-    @vite('resources/css/navbar.css')
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md navbar-shrink">
-        <div class="container">
-            @auth
-                <div class="piccontainer">
-                    <a class="navbar-brand d-flex align-items-center" href="/home">
-                        <img id="pics" src="{{ URL::asset('storage/asset/2.png') }}">
+    <div class="nav-wrapper nav-wrapper-1">
+        <nav class="navbar navbar-expand-lg navbar-light bg-nav-custom effect-1">
+            <div class="container">
+                @auth
+                    <a class="navbar-brand" href="/home" style="width: 200px">
+                        <img src="{{ URL::asset('storage/asset/2.png') }}" alt="" class="logo-nav" />
                     </a>
-                </div>
-                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
-                    <span class="visually-hidden">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-between" id="navcol-1">
-                    <div class="navbar2">
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item"><a href="/home">Home</a></li>
-                            <li class="nav-item"><a href="/home/commission">Commission</a></li>
-                            <li class="nav-item"><a href="/home/shop">Shop</a></li>
-                            <li class="nav-item"><a href="/home/about">About</a></li>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-lg-0 nav-item-custome">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/home/commission">Commision</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/home/shop">Shop</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/home/about">About</a>
+                            </li>
+                            <li>
+                                <div class="button-container justify-content-center">
+                                    <button id="cart-button" onclick="redirectToCart()"><i
+                                            class="fa-solid fa-cart-shopping"></i></button>
+                                    <button id="profile-button" onclick="redirectToProfile()"><i
+                                            class="fa-solid fa-user"></i></button>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" id="profile-button" role="button">LogOut</button>
+                                    </form>
+                                </div>
+                            </li>
                         </ul>
                     </div>
-                    <div class="button-container justify-content-center">
-                        <button id="cart-button" onclick="redirectToCart()"><i
-                                class="fa-solid fa-cart-shopping"></i></button>
-                        <button id="profile-button" onclick="redirectToProfile()"><i class="fa-solid fa-user"></i></button>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" id="profile-button" role="button">Log Out</button>
-                        </form>
-                    </div>
-                </div>
-            @else
-                <div class="piccontainer">
-                    <a class="navbar-brand d-flex align-items-center" href="/">
-                        <img id="pics" src="{{ URL::asset('storage/asset/2.png') }}">
+                @else
+                    <a class="navbar-brand" href="/" style="width: 200px">
+                        <img src="{{ URL::asset('storage/asset/2.png') }}" alt="" class="logo-nav" />
                     </a>
-                </div>
-                <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
-                    <span class="visually-hidden">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-between" id="navcol-1">
-                    <div class="navbar2">
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item"><a href="/">Home</a></li>
-                            <li class="nav-item"><a href="/commission">Commission</a></li>
-                            <li class="nav-item"><a href="/shop">Shop</a></li>
-                            <li class="nav-item"><a href="/about">About</a></li>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-lg-0 nav-item-custome">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/commission">Commision</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/shop">Shop</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/about">About</a>
+                            </li>
+                            <li>
+                                <div class="button-container justify-content-center">
+                                    <button type="submit" id="profile-button" role="button"
+                                        onclick="redirectToLogin()">LogIn</button>
+                                    <button type="submit" id="profile-button" role="button"
+                                        onclick="redirectToRegister()">Register</button>
+                                </div>
+                            </li>
                         </ul>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <div class="button-container">
-                            <button type="submit" id="profile-button" role="button" onclick="redirectToLogin()">Log
-                                In</button>
-                            <button type="submit" id="profile-button" role="button"
-                                onclick="redirectToRegister()">Register</button>
-                        </div>
                     </div>
                 @endauth
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
     <br>
-    <div class="container commission-section">
-        <h3 class="text-center mb-4">Thank you for your interest in my commissions!</h3>
+    <div class="container commission-section" style="color: #D48A86">
+        <h2 class="text-center mb-4"><b>C O M M I S S I O N</b></h2>
         <p class="text-center">Scroll down this page to view commission prices and portfolios, or click the buttons
             below!</p>
         <div class="text-center">Commission status: OPEN</div>
-        <div class="commission-card">
+        <div class="commission-card text-center">
+            <a href="https://vgen.co/ireneparamithaa" class="commission-button circular-button"
+                style="background-color: #B7CFF2; color: #FFFFFF; font-size: 15px"><b>O R D E R</b></a>
             <a href="https://trello.com/b/XIv0XmR5/irenes-commission-tracker-%E2%97%8F%E2%96%BD%E2%97%8F%E3%82%9D"
-                class="commission-button">Track your commission</a>
-            <a href="https://vgen.co/ireneparamithaa" class="commission-button">Order a commission (vgen)</a>
-            <a href="https://www.instagram.com/ireneparamithaa/" class="commission-button">Order a commission (dm)</a>
-            <a href="https://irenecommsfaq.carrd.co/" class="commission-button">Frequently Asked Questions</a>
+                class="commission-button circular-button"
+                style="background-color: #FFDFAE; color: #FFFFFF; font-size: 15px"><b>T R A C K</b></a>
+            <a href="https://irenecommsfaq.carrd.co/" class="commission-button circular-button"
+                style="background-color: #FEC5CB; color: #FFFFFF; font-size: 15px"><b>F . A . Q</b></a>
+
             <div class="text-center">Prices in USD, local rate ꒰ USD 1 = IDR 10,000 ꒱</div>
         </div>
         <br>
@@ -97,7 +116,7 @@
             <!-- Bagian Chibi -->
             <div class="card commission-card">
                 <div class="card-body">
-                    <h5 class="card-title commission-header">Chibi</h5>
+                    <h5 class="card-title commission-header"><b>Chibi</b></h5>
                     <p class="card-text commission-subheader">Chibi character illustration with simple colored
                         background. Fully illustrated background available with additional fee.</p>
                     <!-- Daftar Harga Chibi -->
@@ -109,7 +128,7 @@
             <!-- Bagian Profile Icons -->
             <div class="card commission-card">
                 <div class="card-body">
-                    <h5 class="card-title commission-header">Profile Icons</h5>
+                    <h5 class="card-title commission-header"><b>Profile Icons</b></h5>
                     <p class="card-text commission-subheader">Bust character illustration with additional ornaments and
                         simple colored background. Fully illustrated background available with additional fee.</p>
                     <!-- Daftar Harga Profile Icons -->
@@ -121,7 +140,7 @@
             <!-- Bagian Characters -->
             <div class="card commission-card">
                 <div class="card-body">
-                    <h5 class="card-title commission-header">Characters</h5>
+                    <h5 class="card-title commission-header"><b>Characters</b></h5>
                     <p class="card-text commission-subheader">Fullbody character illustration with simple colored
                         background. Fully illustrated background available with additional fee.</p>
                     <!-- Daftar Harga Characters -->
