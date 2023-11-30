@@ -68,18 +68,6 @@ class AdminController extends Controller
             $photoPreviewPaths[] = $previewPath;
         }
 
-        // Store and associate the progress photos
-        // $photoProgressPaths = [];
-        // foreach ($photoProgress as $file) {
-        //     $extension = $file->extension();
-        //     if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
-        //         return redirect()->back()->withInput()->withErrors(['photoProgress' => 'One or more photo progresses must be a jpg, jpeg, or png file.']);
-        //     }
-
-        //     $progressPath = $file->storePublicly('photos', 'public');
-        //     $photoProgressPaths[] = $progressPath;
-        // }
-
         $product = new Product();
         $product->category = $request->category;
         $product->productName = $request->productName;

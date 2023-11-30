@@ -13,7 +13,7 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         if (Auth::id()) {
             $role_id = Auth()->user()->role_id;

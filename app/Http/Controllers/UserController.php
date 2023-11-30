@@ -46,13 +46,8 @@ class UserController extends Controller
                     'price' => $item->price,
                 ];
             }
-            // 'products' => $items, 'photos' => $photos]
             return view('user.shopping-cart', ['cartData' => $cartData]);
         }
-
-        // $products = Product::all();
-        // $photos = Storage::url($products->photo);
-        // return view('dashboard', ['products' => $products, 'photos' => $photos]);
     }
 
     public function shopping_cart(Request $request)
