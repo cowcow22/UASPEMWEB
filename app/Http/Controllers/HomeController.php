@@ -20,9 +20,6 @@ class HomeController extends Controller
 
             if ($role_id == '2') {
                 $products = Product::where('photoProgress', '!=', null)->get();
-                // $userID = $request->id;
-                // $userProfile = User::all();
-                // $photos = Storage::url($products->photo);
                 $photos = [];
                 foreach ($products as $product) {
                     // Assuming 'photo' is the attribute containing the photo's filename
@@ -39,7 +36,6 @@ class HomeController extends Controller
             }
         } else {
             $products = Product::where('photoProgress', '!=', null)->get();
-            // $photos = Storage::url($products->photo);
             $photos = [];
             foreach ($products as $product) {
                 // Assuming 'photo' is the attribute containing the photo's filename
@@ -48,33 +44,6 @@ class HomeController extends Controller
                 $photos[] = $photoUrl;
             }
             return view('dashboard', ['products' => $products, 'photos' => $photos]);
-        }
-    }
-
-    public function shop()
-    {
-        if (Auth::id()) {
-            $products = Product::all();
-            // $photos = Storage::url($products->photo);
-            $photos = [];
-            foreach ($products as $product) {
-                // Assuming 'photo' is the attribute containing the photo's filename
-                $photoUrl = Storage::url($product->photo);
-                // Add the URL to the $photos array
-                $photos[] = $photoUrl;
-            }
-            return view('user.shop', ['products' => $products, 'photos' => $photos]);
-        } else {
-            $products = Product::all();
-            // $photos = Storage::url($products->photo);
-            $photos = [];
-            foreach ($products as $product) {
-                // Assuming 'photo' is the attribute containing the photo's filename
-                $photoUrl = Storage::url($product->photo);
-                // Add the URL to the $photos array
-                $photos[] = $photoUrl;
-            }
-            return view('user.shop', ['products' => $products, 'photos' => $photos]);
         }
     }
 

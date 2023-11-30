@@ -80,6 +80,7 @@
                         </div>
                     @endforeach
                 </div>
+                <?php if($product->photoProgress != null){?>
                 <div class="row">
                     @foreach ($photoProgress as $progress)
                         <div class="col-md-2 col-sm-6">
@@ -87,6 +88,7 @@
                         </div>
                     @endforeach
                 </div>
+                <?php }?>
                 @auth
                     <div class="row">
                         <div class="col-12 text-end">

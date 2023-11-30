@@ -27,12 +27,8 @@ use App\Http\Controllers\UserController;
 
 //Belum Login
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/commission', function () {
-    return view('user.commission');
-});
-Route::get('/about', function () {
-    return view('user.about');
-});
+Route::get('/commission', [UserController::class, 'commission'])->name('commission');
+Route::get('/about', [UserController::class, 'about'])->name('about');
 Route::get('/shop', [UserController::class, 'shop'])->name('shop');
 Route::get('/homeproductdetail/{id}', [UserController::class, 'homeproductDetail'])->name('homeproductDetail');
 Route::get('/shopproductdetail/{id}', [UserController::class, 'shopproductDetail'])->name('shopproductDetail');
@@ -49,12 +45,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/home/shopping-cart', [UserController::class, 'store'])->name('add_to_shopping-cart');
     Route::post('/home/shopping-cart/{id}', [UserController::class, 'shopping_cart'])->name('shopping-cart');
     Route::post('/home/thankyou', [UserController::class, 'thanks'])->name('thanksPage');
-    // Route::get('/home/thankyou', [UserController::class, 'thanks'])->name('thanksPage');
     Route::get('/home/homeproductdetail/{id}', [UserController::class, 'homeproductDetail'])->name('homeproductDetail');
     Route::get('/home/shopproductdetail/{id}', [UserController::class, 'shopproductDetail'])->name('shopproductDetail');
     Route::post('/updateCartItem', [UserController::class, 'update'])->name('updateCartItem');
     Route::post('/removeCartItem', [UserController::class, 'destroy'])->name('removeCartItem');
-    // Route::post('/checkout', [UserController::class, 'checkout'])->name('checkout');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

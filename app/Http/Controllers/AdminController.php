@@ -123,9 +123,13 @@ class AdminController extends Controller
         }
 
         // Generate URLs for each photo progress and store them in an array
-        $photoProgress = [];
-        foreach ($product->photoProgress as $progress) {
-            $photoProgress[] = Storage::url($progress);
+        if ($product->photoProgress != null) {
+            $photoProgress = [];
+            foreach ($product->photoProgress as $progress) {
+                $photoProgress[] = Storage::url($progress);
+            }
+        } else {
+            $product->photoProgress = null;
         }
 
         return view('admin.show', [

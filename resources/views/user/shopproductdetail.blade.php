@@ -139,14 +139,16 @@
                         @auth
                             <div class="row" style="padding-bottom: 15px;">
                                 <form action="/home/shopping-cart" method="POST">
+                                    @csrf
                                     <div class="qty-input mb-2">
-                                        @csrf
-                                        <button class="qty-count qty-count--minus" name="minus"
-                                            onclick="updateQuantity(-1)" data-action="minus" type="button">-</button>
+                                        <button class="qty-count qty-count--minus" name="buttonBeli"
+                                            value="{{ $product->id }}" onclick="updateQuantity(-1)" data-action="minus"
+                                            type="button">-</button>
                                         <input class="product-qty" type="number" name="qty" min="0"
                                             max="10" value="{{ $tempQty }}" id="quantity">
-                                        <button class="qty-count qty-count--add" name="plus"
-                                            onclick="updateQuantity(1)" data-action="add" type="button">+</button>
+                                        <button class="qty-count qty-count--add" name="buttonBeli"
+                                            value="{{ $product->id }}" onclick="updateQuantity(1)" data-action="add"
+                                            type="button">+</button>
                                     </div>
                                     <button type="submit" class="btn btn-primary mb-3" name="buttonBeli"
                                         value="{{ $product->id }}">

@@ -38,7 +38,7 @@
             <?php $totalHarga += $cartItem['price'] * $cartItem['qty']; ?>
         @endforeach
     </table>
-    <h3>Total Price: Rp. <?= $totalHarga ?></h3>
+    <h3>Total Price: $ <?= $totalHarga ?></h3>
 </body>
 
 </html>

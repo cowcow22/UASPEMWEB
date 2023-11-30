@@ -99,7 +99,7 @@
     <div class="container">
         <h1>Shopping Cart</h1>
         <div>
-            <?php $totalHarga = 0; ?>
+            <?php $totalPrice = 0; ?>
             @foreach ($cartData as $cartItem)
                 <div style="display: flex; justify-content:space-between; margin:10px; align-items:center">
                     <img src="{{ $cartItem['photoUrl'] }}" alt="Product Photo" style="width:200px; height:200px;">
@@ -117,13 +117,13 @@
                             style="border: none; background-color: transparent; outline: none;">+</button>
                     </form>
                     <p>$ {{ $cartItem['price'] }}</p>
-                    <?php $totalHarga += $cartItem['price'] * $cartItem['qty']; ?>
+                    <?php $totalPrice += $cartItem['price'] * $cartItem['qty']; ?>
                 </div>
             @endforeach
         </div>
         <hr>
         <div style="text-align: right">
-            <h3>Subtotal: $ <?= $totalHarga ?></h3>
+            <h3>Subtotal: $ <?= $totalPrice ?></h3>
             <form method="post" action="/home/thankyou" onsubmit="return disableButton()">
                 @csrf
                 <button type="submit" name="checkOut" id="checkout" class="checkOut">Checkout</button>
