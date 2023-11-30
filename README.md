@@ -7,7 +7,7 @@ Persiapan Code:
     - php artisan key:generate
     - php artisan storage:link
 
-2. Setelah menjalankan command diatas, pada file .env.example rename file tersebut menjadi .env kemudian lakukan penyesuaian database dan email.
+2. Setelah menjalankan command diatas, pada file .env.example rename file tersebut menjadi .env kemudian lakukan penyesuaian database dan email. Jangan lupa setelah melakukan penyesuaian, jalankan command php artisan migrate
 
 3. Untuk penyesuaian email bisa lihat youtube berikut, https://www.youtube.com/watch?v=GKFbicONxLk&t=774s mulai menit 19.00.
 
